@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Favicon - simplified S mark -->
+  <rect width="32" height="32" rx="6" fill="#0a0a0a"/>
+  <path d="M8 10c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2H10c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2" 
+        stroke="#6366f1" 
+        stroke-width="3" 
+        stroke-linecap="round" 
+        fill="none"/>
+  <line x1="24" y1="8" x2="8" y2="24" 
+        stroke="#f59e0b" 
+        stroke-width="2" 
+        stroke-linecap="round"/>
+</svg>

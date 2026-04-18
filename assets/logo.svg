@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Background shape with brutalist influence -->
+  <rect x="20" y="20" width="472" height="472" rx="60" fill="#0a0a0a" stroke="#6366f1" stroke-width="8"/>
+  
+  <!-- Primary S mark - stylized with kinetic energy -->
+  <path d="M156 176c0-22 18-40 40-40h120c22 0 40 18 40 40v40c0 22-18 40-40 40H196c-22 0-40 18-40 40v40c0 22 18 40 40 40h120c22 0 40-18 40-40" 
+        stroke="#6366f1" 
+        stroke-width="32" 
+        stroke-linecap="round" 
+        fill="none"/>
+  
+  <!-- Accent slash - representing 'sideways' motion -->
+  <line x1="356" y1="136" x2="156" y2="376" 
+        stroke="#f59e0b" 
+        stroke-width="16" 
+        stroke-linecap="round"/>
+  
+  <!-- 8 dot pattern - representing the '8' in sidewayz8 -->
+  <circle cx="136" cy="256" r="12" fill="#6366f1"/>
+  <circle cx="376" cy="256" r="12" fill="#6366f1"/>
+  
+  <!-- Subtle grid pattern for tech aesthetic -->
+  <g opacity="0.1">
+    <line x1="120" y1="256" x2="136" y2="256" stroke="#6366f1" stroke-width="2"/>
+    <line x1="376" y1="256" x2="392" y2="256" stroke="#6366f1" stroke-width="2"/>
+    <line x1="256" y1="120" x2="256" y2="136" stroke="#6366f1" stroke-width="2"/>
+    <line x1="256" y1="376" x2="256" y2="392" stroke="#6366f1" stroke-width="2"/>
+  </g>
+</svg>
