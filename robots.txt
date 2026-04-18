@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /assets/favicon/README.md
+
+Sitemap: https://sidewayz8solutions.com/sitemap.xml
