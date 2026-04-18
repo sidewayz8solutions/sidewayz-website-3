@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sidewayz 8 Solutions | AI-Powered Creative Technology Studio</title>
+<meta name="description" content="Sidewayz 8 Solutions is a New Orleans-based AI-powered creative technology studio building practical, revenue-driven digital products, SaaS platforms, and AI automation tools.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Sidewayz 8 Solutions">
+<meta name="geo.region" content="US-LA">
+<meta name="geo.placename" content="New Orleans">
+<link rel="canonical" href="https://sidewayz8solutions.com/">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+tailwind.config={theme:{extend:{colors:{'sidewayz-dark':'#0a0a0a','sidewayz-darker':'#050505','copper':'#B87333','copper-light':'#D4925A','neon':'#00F5D4','neon-pink':'#FF006E','neon-purple':'#8338EC'},fontFamily:{'display':['Orbitron','sans-serif'],'body':['Inter','sans-serif'],'accent':['Playfair Display','serif'],'mono':['JetBrains Mono','monospace']}}}};
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{margin:0;padding:0;background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;overflow-x:hidden}
+#preloader{position:fixed;inset:0;background:#050505;z-index:10000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2rem}
+.preloader-text{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:900;color:#B87333;letter-spacing:0.2em}
+.preloader-bar{width:200px;height:2px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden}
+.preloader-bar-fill{width:0%;height:100%;background:linear-gradient(90deg,#B87333,#00F5D4);transition:width 0.3s ease}
+.preloader-counter{font-family:'JetBrains Mono',monospace;font-size:0.875rem;color:rgba(255,255,255,0.4)}
+.cursor{position:fixed;width:12px;height:12px;background:#B87333;border-radius:50%;pointer-events:none;z-index:9999;mix-blend-mode:difference;transition:transform 0.1s ease,width 0.2s ease,height 0.2s ease}
+.cursor-follower{position:fixed;width:40px;height:40px;border:1px solid rgba(184,115,51,0.4);border-radius:50%;pointer-events:none;z-index:9998;transition:transform 0.15s ease,width 0.3s ease,height 0.3s ease,border-color 0.3s ease}
+.cursor.hover{transform:scale(2.5);background:rgba(0,245,212,0.8)}
+.cursor-follower.hover{width:60px;height:60px;border-color:rgba(0,245,212,0.6)}
+.cursor.click{transform:scale(0.5)}
+.grain{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9990;opacity:0.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")}
+#hero-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0}
+.text-gradient{background:linear-gradient(135deg,#B87333 0%,#D4925A 50%,#00F5D4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% 200%;animation:gradient 6s ease infinite}
+.text-copper-glow{text-shadow:0 0 40px rgba(184,115,51,0.5),0 0 80px rgba(184,115,51,0.3),0 0 120px rgba(184,115,51,0.1)}
+.tilt-card{transform-style:preserve-3d;perspective:1000px;transition:transform 0.1s ease-out}
+.tilt-card-inner{transform-style:preserve-3d;transition:transform 0.6s cubic-bezier(0.4,0,0.2,1)}
+.tilt-card:hover .tilt-card-inner{transform:translateZ(30px)}
+.tilt-card-shine{position:absolute;inset:0;background:radial-gradient(circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(255,255,255,0.12) 0%,transparent 60%);opacity:0;transition:opacity 0.3s ease;pointer-events:none;border-radius:inherit}
+.tilt-card:hover .tilt-card-shine{opacity:1}
+.magnetic-btn{position:relative;overflow:hidden;transition:all 0.3s ease}
+.magnetic-btn::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:radial-gradient(circle,rgba(0,245,212,0.3) 0%,transparent 70%);transform:translate(-50%,-50%);transition:width 0.6s ease,height 0.6s ease}
+.magnetic-btn:hover::before{width:400px;height:400px}
+.portfolio-item{overflow:hidden;position:relative}
+.portfolio-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,0.95) 0%,rgba(10,10,10,0.4) 50%,transparent 100%);opacity:0;transition:opacity 0.5s ease;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem}
+.portfolio-item:hover .portfolio-overlay{opacity:1}
+.nav-blur{backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0a0a0a}
+::-webkit-scrollbar-thumb{background:#B87333;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#D4925A}
+.reveal-up{opacity:0;transform:translateY(60px)}
+.reveal-left{opacity:0;transform:translateX(-60px)}
+.reveal-right{opacity:0;transform:translateX(60px)}
+.reveal-scale{opacity:0;transform:scale(0.85)}
+.section-line{height:1px;background:linear-gradient(90deg,transparent,rgba(184,115,51,0.4),transparent)}
+.product-badge{position:absolute;top:-1px;right:-1px;padding:0.5rem 1rem;font-size:0.625rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border-bottom-left-radius:1rem;z-index:20}
+#scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#B87333,#00F5D4);z-index:9999;width:0%;transition:width 0.1s linear}
+@media (pointer:coarse){body{cursor:auto}.cursor,.cursor-follower{display:none}}
+.service-panel{position:relative;overflow:hidden}
+.service-panel::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,#B87333,#00F5D4);transform:scaleX(0);transform-origin:left;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1)}
+.service-panel:hover::after{transform:scaleX(1)}
+.service-panel .service-details{max-height:0;overflow:hidden;transition:max-height 0.5s cubic-bezier(0.4,0,0.2,1),opacity 0.3s ease;opacity:0}
+.service-panel:hover .service-details{max-height:300px;opacity:1}
+@keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes float{0%,100%{transform:translateY(0px)}50%{transform:translateY(-20px)}}
+.flip-card{perspective:1000px;cursor:pointer;min-height:340px}
+.flip-card-inner{position:relative;width:100%;height:100%;min-height:340px;transition:transform 0.8s cubic-bezier(0.4,0,0.2,1);transform-style:preserve-3d}
+.flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
+.flip-card-front,.flip-card-back{position:absolute;inset:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:1rem}
+.flip-card-front{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1)}
+.flip-card-back{background:linear-gradient(135deg,rgba(184,115,51,0.15),rgba(0,245,212,0.08));border:1px solid rgba(184,115,51,0.3);transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem}
+.flip-hint{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);font-size:0.625rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.3);transition:color 0.3s ease}
+.flip-card:hover .flip-hint{color:rgba(184,115,51,0.8)}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Sidewayz 8 Solutions",
+  "url": "https://sidewayz8solutions.com",
+  "logo": "https://sidewayz8solutions.com/assets/logo.svg",
+  "email": "benjamin@sidewayz8solutions.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "New Orleans",
+    "addressRegion": "LA",
+    "addressCountry": "US"
+  },
+  "description": "AI-powered creative technology studio building practical, revenue-driven digital products.",
+  "sameAs": [
+    "https://linkedin.com/in/sidewayz8"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Sidewayz 8 Solutions",
+  "url": "https://sidewayz8solutions.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://sidewayz8solutions.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+</head>
+<body class="bg-sidewayz-dark text-white antialiased">
+<div id="scroll-progress"></div>
+<div id="preloader"><div class="preloader-text">SIDEWAYZ<span class="text-neon">8</span></div><div class="preloader-bar"><div class="preloader-bar-fill" id="preloader-fill"></div></div><div class="preloader-counter" id="preloader-counter">0%</div></div>
+<div class="grain"></div>
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
+<nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 opacity-0 -translate-y-full">
+<div class="nav-blur bg-sidewayz-dark/80 border-b border-white/5">
+<div class="w-full px-6 lg:px-12 py-4 flex justify-between items-center">
+<a href="#hero" class="font-display font-bold text-xl tracking-wider text-white hover:text-copper transition-colors group">SIDEWAYZ<span class="text-copper group-hover:text-neon transition-colors">8</span></a>
+<div class="hidden md:flex items-center gap-8">
+<a href="#products" class="text-sm font-medium text-white/70 hover:text-copper transition-colors">Products</a>
+<a href="#services" class="text-sm font-medium text-white/70 hover:text-copper transition-colors">Services</a>
+<a href="#about" class="text-sm font-medium text-white/70 hover:text-copper transition-colors">About</a>
+<a href="#work" class="text-sm font-medium text-white/70 hover:text-copper transition-colors">Work</a>
+<a href="#contact" class="px-5 py-2 bg-copper/10 border border-copper/30 rounded-full text-sm font-medium text-copper hover:bg-copper hover:text-sidewayz-dark transition-all">Contact</a>
+</div>
+<button id="mobile-menu-btn" class="md:hidden text-white p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+</div>
+</div>
+</nav>
+
+<div id="mobile-menu" class="fixed inset-0 bg-sidewayz-dark z-40 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500">
+<div class="absolute inset-0 bg-gradient-to-b from-copper/5 to-transparent"></div>
+<div class="text-center space-y-8 relative z-10">
+<a href="#products" class="block text-3xl font-display font-bold text-white hover:text-copper transition-colors mobile-link">Products</a>
+<a href="#services" class="block text-3xl font-display font-bold text-white hover:text-copper transition-colors mobile-link">Services</a>
+<a href="#about" class="block text-3xl font-display font-bold text-white hover:text-copper transition-colors mobile-link">About</a>
+<a href="#work" class="block text-3xl font-display font-bold text-white hover:text-copper transition-colors mobile-link">Work</a>
+<a href="#contact" class="block text-3xl font-display font-bold text-white hover:text-copper transition-colors mobile-link">Contact</a>
+</div>
+<button id="mobile-menu-close" class="absolute top-6 right-6 text-white p-2"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+
+<section id="hero" class="relative w-full h-screen overflow-hidden">
+<canvas id="hero-canvas"></canvas>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-sidewayz-dark/40 to-sidewayz-dark z-10"></div>
+<div class="relative z-20 w-full h-full flex flex-col justify-center items-center px-6">
+<div class="text-center max-w-6xl mx-auto">
+<div class="hero-eyebrow opacity-0 mb-8">
+<span class="inline-flex items-center gap-2 px-4 py-2 border border-copper/30 rounded-full text-xs font-mono tracking-[0.3em] text-copper uppercase">
+<span class="w-2 h-2 bg-copper rounded-full animate-pulse"></span>
+AI-Powered Creative Technology Studio
+</span>
+</div>
+<h1 class="hero-title opacity-0 font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight leading-[0.9] mb-10">
+<span class="block text-white">SIDEWAYZ</span>
+<span class="block text-gradient text-copper-glow">8</span>
+</h1>
+<p class="hero-tagline opacity-0 font-accent italic text-xl sm:text-2xl md:text-3xl text-white/80 max-w-2xl mx-auto mb-12 leading-relaxed">We build solutions for a sidewayz world.</p>
+<div class="hero-cta opacity-0 flex flex-col sm:flex-row gap-4 justify-center items-center">
+<a href="#products" class="magnetic-btn px-8 py-4 bg-copper text-sidewayz-dark font-display font-bold text-sm tracking-wider rounded-full hover:bg-copper-light transition-all relative z-10">EXPLORE PRODUCTS</a>
+<a href="#contact" class="magnetic-btn px-8 py-4 border border-white/30 text-white font-display font-bold text-sm tracking-wider rounded-full hover:border-copper hover:text-copper transition-all relative z-10">START A PROJECT</a>
+</div>
+</div>
+<div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
+<span class="text-xs tracking-[0.3em] text-white/40 uppercase font-mono">Scroll</span>
+<div class="w-px h-16 bg-gradient-to-b from-copper to-transparent"></div>
+</div>
+</div>
+<div class="absolute top-1/4 left-10 w-2 h-2 bg-copper rounded-full animate-float opacity-60"></div>
+<div class="absolute top-1/3 right-20 w-3 h-3 bg-neon rounded-full animate-float opacity-40" style="animation-delay:1s"></div>
+<div class="absolute bottom-1/3 left-1/4 w-2 h-2 bg-neon-pink rounded-full animate-float opacity-50" style="animation-delay:2s"></div>
+</section>
+
+<section id="stats" class="relative w-full py-16 lg:py-20 border-y border-white/5 bg-sidewayz-darker/50">
+<div class="w-full px-6 lg:px-12">
+<div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+<div class="text-center lg:text-left"><div class="font-display font-black text-5xl lg:text-6xl text-gradient mb-2 counter-value" data-target="9">0</div><div class="text-white/40 text-xs tracking-[0.2em] uppercase font-mono">Products Live</div></div>
+<div class="text-center lg:text-left"><div class="font-display font-black text-5xl lg:text-6xl text-copper mb-2 counter-value" data-target="6" data-suffix="+">0</div><div class="text-white/40 text-xs tracking-[0.2em] uppercase font-mono">Industries</div></div>
+<div class="text-center lg:text-left"><div class="font-display font-black text-5xl lg:text-6xl text-neon mb-2 counter-value" data-target="4" data-suffix="+">0</div><div class="text-white/40 text-xs tracking-[0.2em] uppercase font-mono">Software Directories</div></div>
+<div class="text-center lg:text-left"><div class="font-display font-black text-5xl lg:text-6xl text-neon-pink mb-2 counter-value" data-target="1">0</div><div class="text-white/40 text-xs tracking-[0.2em] uppercase font-mono">Sister Brand</div></div>
+</div>
+</div>
+</section>
+
+<section id="about" class="relative w-full py-32 lg:py-48 overflow-hidden">
+<div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-copper/5 to-transparent"></div>
+<div class="absolute -bottom-32 -left-32 w-96 h-96 bg-neon/5 rounded-full blur-3xl"></div>
+<div class="relative z-10 w-full px-6 lg:px-12">
+<div class="max-w-7xl mx-auto">
+<div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start mb-24">
+<div class="reveal-left">
+<span class="text-copper text-sm font-mono tracking-[0.3em] uppercase mb-4 block">About Us</span>
+<h2 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl text-white leading-tight">BUILDING PRACTICAL,<br/><span class="text-gradient">REVENUE-DRIVEN</span><br/>DIGITAL PRODUCTS</h2>
+</div>
+<div class="reveal-right lg:pt-12 space-y-6">
+<p class="text-lg text-white/70 leading-relaxed">Sidewayz 8 Solutions is a multidisciplinary technology and creative studio focused on building practical, revenue-driven digital products. We operate at the intersection of software development, artificial intelligence, branding, and design — turning ideas into scalable, real-world solutions.</p>
+<p class="text-white/50 leading-relaxed">We design, build, and launch platforms that solve concrete problems for individuals, startups, and small businesses. From AI-powered web applications to branding systems and automation tools, our work is rooted in usability, performance, and measurable outcomes.</p>
+<p class="text-white/50 leading-relaxed">Founded on the belief that technology should be accessible, efficient, and purpose-built — not bloated, over-engineered, or disconnected from real needs. We move quickly, iterate intelligently, and focus on shipping products that work.</p>
+</div>
+</div>
+<div class="section-line mb-24"></div>
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+<div class="reveal-left">
+<span class="text-copper text-sm font-mono tracking-[0.3em] uppercase mb-4 block">Our Mission</span>
+<h3 class="font-display font-bold text-3xl lg:text-4xl text-white mb-8">Building smart, efficient digital solutions</h3>
+<ul class="space-y-4">
+<li class="flex items-start gap-4"><div class="w-6 h-6 rounded-full bg-copper/20 flex items-center justify-center flex-shrink-0 mt-1"><div class="w-2 h-2 bg-copper rounded-full"></div></div><span class="text-white/70">Simplify complex problems through thoughtful technology</span></li>
+<li class="flex items-start gap-4"><div class="w-6 h-6 rounded-full bg-neon/20 flex items-center justify-center flex-shrink-0 mt-1"><div class="w-2 h-2 bg-neon rounded-full"></div></div><span class="text-white/70">Create tools that deliver immediate, tangible value</span></li>
+<li class="flex items-start gap-4"><div class="w-6 h-6 rounded-full bg-neon-purple/20 flex items-center justify-center flex-shrink-0 mt-1"><div class="w-2 h-2 bg-neon-purple rounded-full"></div></div><span class="text-white/70">Bridge the gap between creativity and engineering</span></li>
+<li class="flex items-start gap-4"><div class="w-6 h-6 rounded-full bg-neon-pink/20 flex items-center justify-center flex-shrink-0 mt-1"><div class="w-2 h-2 bg-neon-pink rounded-full"></div></div><span class="text-white/70">Empower users with systems that are intuitive, scalable, and reliable</span></li>
+</ul>
+</div>
+<div class="reveal-right">
+<div class="relative p-8 lg:p-12 bg-white/[0.02] border border-white/10 rounded-3xl">
+<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-copper/5 to-transparent rounded-3xl pointer-events-none"></div>
+<div class="relative z-10">
+<div class="text-6xl text-copper/20 font-accent mb-6">"</div>
+<blockquote class="text-xl lg:text-2xl text-white/90 italic leading-relaxed mb-6 font-accent">Technology should be accessible, efficient, and purpose-built — not bloated, over-engineered, or disconnected from real needs.</blockquote>
+<footer class="text-copper font-medium font-mono text-sm tracking-wider">— The Sidewayz Philosophy</footer>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="products" class="relative w-full py-32 lg:py-48 overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-sidewayz-dark via-sidewayz-darker to-sidewayz-dark"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-copper/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 w-full px-6 lg:px-12">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-20">
+<span class="reveal-up text-copper text-sm font-mono tracking-[0.3em] uppercase mb-4 block">What We Build</span>
+<h2 class="reveal-up font-display font-black text-4xl sm:text-5xl lg:text-6xl text-white mb-6">OUR <span class="text-gradient">PRODUCTS</span></h2>
+<p class="reveal-up text-white/50 max-w-2xl mx-auto text-lg">Innovative solutions built with passion, powered by AI, designed for impact.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+  <div class="flip-card reveal-up group" onclick="this.classList.toggle('flipped')">
+    <div class="flip-card-inner">
+      <div class="flip-card-front p-8 relative">
+        <div class="product-badge bg-copper/20 text-copper">AI Powered</div>
+        <div class="w-14 h-14 bg-copper/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-copper/30 transition-colors">
+          <svg class="w-7 h-7 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-2xl text-white mb-3">Smart ATS Resume</h3>
+        <p class="text-white/60 text-sm leading-relaxed mb-6">A resume builder specifically designed to beat company ATS and get your resume back in human hands.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-white/30">Featured on 4+ software directories</span>
+        </div>
+        <div class="flip-hint">Tap to flip</div>
+      </div>
+      <div class="flip-card-back">
+        <div class="w-16 h-16 bg-copper/20 rounded-full flex items-center justify-center mb-6">
+          <svg class="w-8 h-8 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">Smart ATS Resume</h3>
+        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
+        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-copper/30 transition-all">Explore <span>→</span></a>
+        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+      </div>
+    </div>
+  </div>
+  <div class="flip-card reveal-up group" style="transition-delay:0.1s" onclick="this.classList.toggle('flipped')">
+    <div class="flip-card-inner">
+      <div class="flip-card-front p-8 relative">
+        <div class="product-badge bg-neon/10 text-neon">Mobile App</div>
+        <div class="w-14 h-14 bg-neon/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-neon/30 transition-colors">
+          <svg class="w-7 h-7 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-2xl text-white mb-3">Püper</h3>
+        <p class="text-white/60 text-sm leading-relaxed mb-6">The Yelp of public restrooms. Never wonder again if a public restroom is out of order, dirty, or stocked.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-white/30">Location Intelligence</span>
+        </div>
+        <div class="flip-hint">Tap to flip</div>
+      </div>
+      <div class="flip-card-back">
+        <div class="w-16 h-16 bg-neon/20 rounded-full flex items-center justify-center mb-6">
+          <svg class="w-8 h-8 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">Püper</h3>
+        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
+        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon/20 text-neon rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon/30 transition-all">Explore <span>→</span></a>
+        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+      </div>
+    </div>
+  </div>
+  <div class="flip-card reveal-up group" style="transition-delay:0.2s" onclick="this.classList.toggle('flipped')">
+    <div class="flip-card-inner">
+      <div class="flip-card-front p-8 relative">
+        <div class="product-badge bg-neon-purple/10 text-neon-purple">SaaS</div>
+        <div class="w-14 h-14 bg-neon-purple/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-neon-purple/30 transition-colors">
+          <svg class="w-7 h-7 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-2xl text-white mb-3">PageMint</h3>
+        <p class="text-white/60 text-sm leading-relaxed mb-6">Get mobile-optimized landing pages that jumpstart your idea in minutes. Launch fast, iterate faster.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-white/30">Rapid Deployment</span>
+        </div>
+        <div class="flip-hint">Tap to flip</div>
+      </div>
+      <div class="flip-card-back">
+        <div class="w-16 h-16 bg-neon-purple/20 rounded-full flex items-center justify-center mb-6">
+          <svg class="w-8 h-8 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">PageMint</h3>
+        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
+        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon-purple/20 text-neon-purple rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon-purple/30 transition-all">Explore <span>→</span></a>
+        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+      </div>
+    </div>
+  </div>
+  <div class="flip-card reveal-up group" onclick="this.classList.toggle('flipped')">
+    <div class="flip-card-inner">
+      <div class="flip-card-front p-8 relative">
+        <div class="product-badge bg-copper/20 text-copper">Creative</div>
+        <div class="w-14 h-14 bg-copper/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-copper/30 transition-colors">
+          <svg class="w-7 h-7 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-2xl text-white mb-3">Captain Hook's Jingle Factory</h3>
+        <p class="text-white/60 text-sm leading-relaxed mb-6">A jingle company by name — but a full audio marketing crew. From sound effects to film scores, we have you covered.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-white/30">Audio Marketing</span>
+        </div>
+        <div class="flip-hint">Tap to flip</div>
+      </div>
+      <div class="flip-card-back">
+        <div class="w-16 h-16 bg-copper/20 rounded-full flex items-center justify-center mb-6">
+          <svg class="w-8 h-8 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">Captain Hook's Jingle Factory</h3>
+        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
+        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-copper/30 transition-all">Explore <span>→</span></a>
+        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+      </div>
+    </div>
+  </div>
+  <div class="flip-card reveal-up group" style="transition-delay:0.1s" onclick="this.classList.toggle('flipped')">
+    <div class="flip-card-inner">
+      <div class="flip-card-front p-8 relative">
+        <div class="product-badge bg-neon-pink/10 text-neon-pink">Branding</div>
+        <div class="w-14 h-14 bg-neon-pink/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-neon-pink/30 transition-colors">
+          <svg class="w-7 h-7 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-2xl text-white mb-3">Button'd</h3>
+        <p class="text-white/60 text-sm leading-relaxed mb-6">A brand development company. Need a fresh new look or launching a startup? We create websites, slogans, and everything in between.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-white/30">Brand Identity</span>
+        </div>
+        <div class="flip-hint">Tap to flip</div>
+      </div>
+      <div class="flip-card-back">
+        <div class="w-16 h-16 bg-neon-pink/20 rounded-full flex items-center justify-center mb-6">
+          <svg class="w-8 h-8 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">Button'd</h3>
+        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
+        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon-pink/20 text-neon-pink rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon-pink/30 transition-all">Explore <span>→</span></a>
+        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+      </div>
+    </div>
+  </div>
+  <div class="flip-card reveal-up group" style="transition-delay:0.2s" onclick="this.classList.toggle('flipped')">
+    <div class="flip-card-inner">
+      <div class="flip-card-front p-8 relative">
+        <div class="product-badge bg-neon/10 text-neon">Campaign</div>
+        <div class="w-14 h-14 bg-neon/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-neon/30 transition-colors">
+          <svg class="w-7 h-7 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-2xl text-white mb-3">Political Campaigns</h3>
+        <p class="text-white/60 text-sm leading-relaxed mb-6">We build political websites and assist in campaign marketing. Latest: the New Orleans Mayoral campaign.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-white/30">Digital Strategy</span>
+        </div>
+        <div class="flip-hint">Tap to flip</div>
+      </div>
+      <div class="flip-card-back">
+        <div class="w-16 h-16 bg-neon/20 rounded-full flex items-center justify-center mb-6">
+          <svg class="w-8 h-8 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">Political Campaigns</h3>
+        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
+        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon/20 text-neon rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon/30 transition-all">Explore <span>→</span></a>
+        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+      </div>
+    </div>
+  </div>
+  <div class="flip-card reveal-up group" onclick="this.classList.toggle('flipped')">
+    <div class="flip-card-inner">
+      <div class="flip-card-front p-8 relative">
+        <div class="product-badge bg-neon-purple/10 text-neon-purple">Legal Tech</div>
+        <div class="w-14 h-14 bg-neon-purple/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-neon-purple/30 transition-colors">
+          <svg class="w-7 h-7 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-2xl text-white mb-3">LegalLetter AI</h3>
+        <p class="text-white/60 text-sm leading-relaxed mb-6">Craft your legal dispute in minutes. Covering a range of topics and disputes, tone options for urgency, and professional execution.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-white/30">AI Document Generation</span>
+        </div>
+        <div class="flip-hint">Tap to flip</div>
+      </div>
+      <div class="flip-card-back">
+        <div class="w-16 h-16 bg-neon-purple/20 rounded-full flex items-center justify-center mb-6">
+          <svg class="w-8 h-8 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">LegalLetter AI</h3>
+        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
+        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon-purple/20 text-neon-purple rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon-purple/30 transition-all">Explore <span>→</span></a>
+        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+      </div>
+    </div>
+  </div>
+  <div class="flip-card reveal-up group" style="transition-delay:0.1s" onclick="this.classList.toggle('flipped')">
+    <div class="flip-card-inner">
+      <div class="flip-card-front p-8 relative">
+        <div class="product-badge bg-copper/20 text-copper">Visibility</div>
+        <div class="w-14 h-14 bg-copper/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-copper/30 transition-colors">
+          <svg class="w-7 h-7 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-2xl text-white mb-3">Brand - APOL</h3>
+        <p class="text-white/60 text-sm leading-relaxed mb-6">A business built for brand visibility. Specializing in brand visibility and marketing campaigns — we take your idea to the masses.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-white/30">Marketing Campaigns</span>
+        </div>
+        <div class="flip-hint">Tap to flip</div>
+      </div>
+      <div class="flip-card-back">
+        <div class="w-16 h-16 bg-copper/20 rounded-full flex items-center justify-center mb-6">
+          <svg class="w-8 h-8 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">Brand - APOL</h3>
+        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
+        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-copper/30 transition-all">Explore <span>→</span></a>
+        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+      </div>
+    </div>
+  </div>
+  <div class="flip-card reveal-up group" style="transition-delay:0.2s" onclick="this.classList.toggle('flipped')">
+    <div class="flip-card-inner">
+      <div class="flip-card-front p-8 relative">
+        <div class="product-badge bg-neon-pink/10 text-neon-pink">Music Tech</div>
+        <div class="w-14 h-14 bg-neon-pink/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-neon-pink/30 transition-colors">
+          <svg class="w-7 h-7 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-2xl text-white mb-3">Royally Tuned</h3>
+        <p class="text-white/60 text-sm leading-relaxed mb-6">A company that puts the money/royalties artists make in their pocket. Empowering creators to own their revenue.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-white/30">Artist Royalties</span>
+        </div>
+        <div class="flip-hint">Tap to flip</div>
+      </div>
+      <div class="flip-card-back">
+        <div class="w-16 h-16 bg-neon-pink/20 rounded-full flex items-center justify-center mb-6">
+          <svg class="w-8 h-8 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-3">Royally Tuned</h3>
+        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
+        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon-pink/20 text-neon-pink rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon-pink/30 transition-all">Explore <span>→</span></a>
+        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+      </div>
+    </div>
+  </div>
+</div>
+	</div>
+	</div>
+</section>
+
+<section id="services" class="relative w-full py-32 lg:py-48 overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-sidewayz-dark via-sidewayz-darker/50 to-sidewayz-dark pointer-events-none"></div>
+<div class="relative z-10 w-full px-6 lg:px-12">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-20">
+<span class="reveal-up text-copper text-sm font-mono tracking-[0.3em] uppercase mb-4 block">What We Do</span>
+<h2 class="reveal-up font-display font-black text-4xl sm:text-5xl lg:text-6xl text-white mb-6">OUR <span class="text-gradient">SERVICES</span></h2>
+<p class="reveal-up text-white/50 max-w-2xl mx-auto text-lg">Full-stack AI-powered solutions for modern businesses.</p>
+</div>
+<div class="space-y-6">
+<div class="service-panel reveal-up group bg-white/[0.02] border border-white/10 rounded-2xl p-8 lg:p-10 hover:bg-white/[0.04] transition-colors cursor-pointer">
+<div class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12">
+<div class="flex items-center gap-6 flex-1">
+<div class="w-16 h-16 bg-copper/20 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-copper/30 transition-colors">
+<svg class="w-8 h-8 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+</div>
+<div>
+<h3 class="font-display font-bold text-2xl text-white mb-2">AI SaaS Development</h3>
+<p class="text-white/60">End-to-end SaaS product engineering with AI integration. From concept to scalable deployment.</p>
+</div>
+</div>
+<div class="text-copper opacity-0 group-hover:opacity-100 transition-opacity"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></div>
+</div>
+<div class="service-details mt-6 pt-6 border-t border-white/5">
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-copper rounded-full"></div>Full-Stack Development</div>
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-copper rounded-full"></div>AI Model Integration</div>
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-copper rounded-full"></div>Cloud Architecture</div>
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-copper rounded-full"></div>API Design</div>
+</div>
+</div>
+</div>
+<div class="service-panel reveal-up group bg-white/[0.02] border border-white/10 rounded-2xl p-8 lg:p-10 hover:bg-white/[0.04] transition-colors cursor-pointer" style="transition-delay:0.1s">
+<div class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12">
+<div class="flex items-center gap-6 flex-1">
+<div class="w-16 h-16 bg-neon/20 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-neon/30 transition-colors">
+<svg class="w-8 h-8 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+</div>
+<div>
+<h3 class="font-display font-bold text-2xl text-white mb-2">AI Automation</h3>
+<p class="text-white/60">Intelligent workflow automation using AI agents. Eliminate repetitive tasks and scale operations.</p>
+</div>
+</div>
+<div class="text-neon opacity-0 group-hover:opacity-100 transition-opacity"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></div>
+</div>
+<div class="service-details mt-6 pt-6 border-t border-white/5">
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-neon rounded-full"></div>Process Automation</div>
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-neon rounded-full"></div>AI Agent Workflows</div>
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-neon rounded-full"></div>Data Pipeline</div>
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-neon rounded-full"></div>Integration</div>
+</div>
+</div>
+</div>
+<div class="service-panel reveal-up group bg-white/[0.02] border border-white/10 rounded-2xl p-8 lg:p-10 hover:bg-white/[0.04] transition-colors cursor-pointer" style="transition-delay:0.2s">
+<div class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12">
+<div class="flex items-center gap-6 flex-1">
+<div class="w-16 h-16 bg-neon-pink/20 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-neon-pink/30 transition-colors">
+<svg class="w-8 h-8 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+</div>
+<div>
+<h3 class="font-display font-bold text-2xl text-white mb-2">AI Branding</h3>
+<p class="text-white/60">Intelligent branding systems that evolve with your audience. AI-powered design and strategy.</p>
+</div>
+</div>
+<div class="text-neon-pink opacity-0 group-hover:opacity-100 transition-opacity"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></div>
+</div>
+<div class="service-details mt-6 pt-6 border-t border-white/5">
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-neon-pink rounded-full"></div>Brand Identity</div>
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-neon-pink rounded-full"></div>AI-Generated Assets</div>
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-neon-pink rounded-full"></div>Style Systems</div>
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-neon-pink rounded-full"></div>Visual Strategy</div>
+</div>
+</div>
+</div>
+<div class="service-panel reveal-up group bg-white/[0.02] border border-white/10 rounded-2xl p-8 lg:p-10 hover:bg-white/[0.04] transition-colors cursor-pointer" style="transition-delay:0.3s">
+<div class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12">
+<div class="flex items-center gap-6 flex-1">
+<div class="w-16 h-16 bg-neon-purple/20 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-neon-purple/30 transition-colors">
+<svg class="w-8 h-8 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+</div>
+<div>
+<h3 class="font-display font-bold text-2xl text-white mb-2">AI Consulting</h3>
+<p class="text-white/60">Strategic guidance for AI adoption. Roadmaps, implementation plans, and technical advisory.</p>
+</div>
+</div>
+<div class="text-neon-purple opacity-0 group-hover:opacity-100 transition-opacity"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></div>
+</div>
+<div class="service-details mt-6 pt-6 border-t border-white/5">
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-neon-purple rounded-full"></div>Strategy Roadmap</div>
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-neon-purple rounded-full"></div>Tech Advisory</div>
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-neon-purple rounded-full"></div>AI Audit</div>
+<div class="flex items-center gap-3 text-white/50 text-sm"><div class="w-1.5 h-1.5 bg-neon-purple rounded-full"></div>Team Training</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="relative w-full py-32 lg:py-40 overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-copper/5 via-transparent to-neon/5 pointer-events-none"></div>
+<div class="relative z-10 w-full px-6 lg:px-12">
+<div class="max-w-5xl mx-auto text-center">
+<span class="reveal-up text-copper text-sm font-mono tracking-[0.3em] uppercase mb-6 block">Innovation Lab</span>
+<h2 class="reveal-up font-display font-black text-4xl sm:text-5xl lg:text-7xl text-white mb-8 leading-tight">WHERE IDEAS<br/><span class="text-gradient">TAKE SHAPE</span></h2>
+<p class="reveal-up text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">We don't just build websites and apps — we craft immersive digital experiences that push the boundaries of what's possible on the web. Every project is an opportunity to innovate.</p>
+</div>
+</div>
+</section>
+
+<section id="work" class="relative w-full py-32 lg:py-48 overflow-hidden">
+<div class="relative z-10 w-full px-6 lg:px-12">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16 lg:mb-24">
+<div>
+<span class="reveal-up text-copper text-sm font-mono tracking-[0.3em] uppercase mb-4 block">Trusted Work</span>
+<h2 class="reveal-up font-display font-black text-4xl sm:text-5xl lg:text-6xl text-white">REAL PRODUCTS.<br/><span class="text-gradient">REAL RESULTS.</span></h2>
+</div>
+<p class="reveal-up text-white/50 max-w-md mt-6 lg:mt-0 lg:text-right">Real products. Real campaigns. Real results. See what we've shipped.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+<div class="lg:col-span-7 reveal-left">
+<div class="portfolio-item group relative aspect-[16/10] rounded-2xl overflow-hidden bg-white/5 border border-white/10">
+<div class="absolute inset-0 bg-gradient-to-br from-copper/30 via-neon/10 to-transparent"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="text-center">
+<div class="w-24 h-24 mx-auto mb-4 rounded-full bg-white/10 backdrop-blur flex items-center justify-center border border-copper/30">
+<svg class="w-12 h-12 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+</div>
+<span class="text-white/40 text-sm tracking-wider uppercase font-mono">Political Campaign</span>
+</div>
+</div>
+<div class="portfolio-overlay">
+<span class="text-copper text-xs font-medium tracking-wider uppercase mb-2 font-mono">New Orleans Mayoral Race</span>
+<h3 class="font-display font-bold text-2xl text-white mb-2">Frank Scurlock for Mayor</h3>
+<p class="text-white/60 text-sm">Complete campaign website and digital marketing for the New Orleans mayoral race.</p>
+</div>
+</div>
+</div>
+<div class="lg:col-span-5 flex flex-col gap-6 lg:gap-8">
+<div class="reveal-right">
+<div class="portfolio-item group relative aspect-[4/3] rounded-2xl overflow-hidden bg-white/5 border border-white/10">
+<div class="absolute inset-0 bg-gradient-to-br from-neon-purple/30 to-copper/20"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="text-center">
+<div class="w-16 h-16 mx-auto mb-2 rounded-full bg-white/10 backdrop-blur flex items-center justify-center border border-neon-purple/30">
+<svg class="w-8 h-8 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+</div>
+<span class="text-white/40 text-sm tracking-wider uppercase font-mono">HR Tech</span>
+</div>
+</div>
+<div class="portfolio-overlay">
+<span class="text-neon-purple text-xs font-medium tracking-wider uppercase mb-2 font-mono">AI Resume Builder</span>
+<h3 class="font-display font-bold text-xl text-white mb-2">SmartATS Resume</h3>
+<p class="text-white/60 text-sm">AI-powered resume builder that beats ATS filters. Featured on 4+ software directories.</p>
+</div>
+</div>
+</div>
+<div class="reveal-right" style="transition-delay:0.1s">
+<div class="portfolio-item group relative aspect-[4/3] rounded-2xl overflow-hidden bg-white/5 border border-white/10">
+<div class="absolute inset-0 bg-gradient-to-br from-copper/30 to-neon/20"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="text-center">
+<div class="w-16 h-16 mx-auto mb-2 rounded-full bg-white/10 backdrop-blur flex items-center justify-center border border-copper/30">
+<svg class="w-8 h-8 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+</div>
+<span class="text-white/40 text-sm tracking-wider uppercase font-mono">Audio Marketing</span>
+</div>
+</div>
+<div class="portfolio-overlay">
+<span class="text-copper text-xs font-medium tracking-wider uppercase mb-2 font-mono">Creative Audio</span>
+<h3 class="font-display font-bold text-xl text-white mb-2">Captain Hook's Jingle Factory</h3>
+<p class="text-white/60 text-sm">Full audio marketing brand — from jingles to sound design and film scores.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="contact" class="relative w-full py-32 lg:py-48 overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-sidewayz-darker via-sidewayz-dark to-sidewayz-dark"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-copper/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 w-full px-6 lg:px-12">
+<div class="max-w-5xl mx-auto text-center">
+<span class="reveal-up text-copper text-sm font-mono tracking-[0.3em] uppercase mb-6 block">Start The Conversation</span>
+<h2 class="reveal-up font-display font-black text-5xl sm:text-6xl lg:text-8xl text-white mb-8 leading-[0.95]">LET'S CREATE<br/><span class="text-gradient">NEW ANGLES</span></h2>
+<p class="reveal-up text-lg text-white/60 max-w-2xl mx-auto mb-16">Ready to look at your challenges from a different perspective? We're always open to bold ideas and brave partnerships.</p>
+<div class="grid md:grid-cols-3 gap-8 mb-16">
+<div class="reveal-up group">
+<div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-copper/50 transition-all group-hover:bg-copper/5">
+<svg class="w-7 h-7 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+</div>
+<h3 class="font-display font-bold text-white mb-2">Email</h3>
+<a href="mailto:benjamin@sidewayz8solutions.com" class="text-white/50 hover:text-copper transition-colors">benjamin@sidewayz8solutions.com</a>
+</div>
+<div class="reveal-up group" style="transition-delay:0.1s">
+<div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-neon/50 transition-all group-hover:bg-neon/5">
+<svg class="w-7 h-7 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+</div>
+<h3 class="font-display font-bold text-white mb-2">Location</h3>
+<span class="text-white/50">New Orleans, Louisiana</span>
+</div>
+<div class="reveal-up group" style="transition-delay:0.2s">
+<div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-neon-purple/50 transition-all group-hover:bg-neon-purple/5">
+<svg class="w-7 h-7 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+</div>
+<h3 class="font-display font-bold text-white mb-2">Social</h3>
+<div class="flex justify-center gap-4">
+<a href="https://linkedin.com/in/sidewayz8" target="_blank" rel="noopener" class="text-white/50 hover:text-copper transition-colors">LinkedIn</a>
+<a href="#" class="text-white/50 hover:text-copper transition-colors">Twitter</a>
+<a href="#" class="text-white/50 hover:text-copper transition-colors">GitHub</a>
+</div>
+</div>
+</div>
+<div class="reveal-scale">
+<a href="mailto:benjamin@sidewayz8solutions.com" class="magnetic-btn inline-flex items-center gap-4 px-12 py-6 bg-copper text-sidewayz-dark font-display font-bold text-lg tracking-wider rounded-full hover:bg-copper-light transition-all relative z-10 group">
+START A PROJECT
+<svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+</a>
+</div>
+</div>
+</div>
+</section>
+
+<footer class="relative w-full py-12 border-t border-white/5">
+<div class="w-full px-6 lg:px-12">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="font-display font-bold text-xl tracking-wider text-white">SIDEWAYZ<span class="text-copper">8</span></div>
+<div class="text-white/30 text-sm font-mono">© 2025 Sidewayz 8 Solutions. All rights reserved.</div>
+<div class="flex items-center gap-6">
+<a href="#" class="text-white/30 hover:text-copper transition-colors text-sm">Privacy</a>
+<a href="#" class="text-white/30 hover:text-copper transition-colors text-sm">Terms</a>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+const preloader=document.getElementById('preloader');
+const preloaderFill=document.getElementById('preloader-fill');
+const preloaderCounter=document.getElementById('preloader-counter');
+let progress=0;
+const preloadInterval=setInterval(()=>{
+progress+=Math.random()*15;
+if(progress>=100){progress=100;clearInterval(preloadInterval);
+setTimeout(()=>{gsap.to(preloader,{opacity:0,duration:0.8,ease:'power2.inOut',onComplete:()=>{preloader.style.display='none';initHeroAnimations();}});},400);}
+preloaderFill.style.width=progress+'%';
+preloaderCounter.textContent=Math.floor(progress)+'%';
+},100);
+
+const cursor=document.querySelector('.cursor');
+const cursorFollower=document.querySelector('.cursor-follower');
+let mouseX=0,mouseY=0,cursorX=0,cursorY=0,followerX=0,followerY=0;
+if(!window.matchMedia('(pointer: coarse)').matches){
+document.addEventListener('mousemove',(e)=>{mouseX=e.clientX;mouseY=e.clientY;});
+function animateCursor(){cursorX+=(mouseX-cursorX)*0.15;cursorY+=(mouseY-cursorY)*0.15;followerX+=(mouseX-followerX)*0.08;followerY+=(mouseY-followerY)*0.08;cursor.style.left=cursorX-6+'px';cursor.style.top=cursorY-6+'px';cursorFollower.style.left=followerX-20+'px';cursorFollower.style.top=followerY-20+'px';requestAnimationFrame(animateCursor);}
+animateCursor();
+document.addEventListener('mousedown',()=>cursor.classList.add('click'));
+document.addEventListener('mouseup',()=>cursor.classList.remove('click'));
+document.querySelectorAll('a,button,.tilt-card,.portfolio-item,.service-panel').forEach(el=>{
+el.addEventListener('mouseenter',()=>{cursor.classList.add('hover');cursorFollower.classList.add('hover');});
+el.addEventListener('mouseleave',()=>{cursor.classList.remove('hover');cursorFollower.classList.remove('hover');});
+});
+}
+
+const canvas=document.getElementById('hero-canvas');
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+
+const particleCount=120;
+const positions=new Float32Array(particleCount*3);
+const velocities=[];
+for(let i=0;i<particleCount;i++){
+positions[i*3]=(Math.random()-0.5)*25;
+positions[i*3+1]=(Math.random()-0.5)*25;
+positions[i*3+2]=(Math.random()-0.5)*15;
+velocities.push({x:(Math.random()-0.5)*0.008,y:(Math.random()-0.5)*0.008,z:(Math.random()-0.5)*0.004});
+}
+const particleGeometry=new THREE.BufferGeometry();
+particleGeometry.setAttribute('position',new THREE.BufferAttribute(positions,3));
+const particleMaterial=new THREE.PointsMaterial({color:0xB87333,size:0.08,transparent:true,opacity:0.7,blending:THREE.AdditiveBlending,sizeAttenuation:true});
+const particles=new THREE.Points(particleGeometry,particleMaterial);
+scene.add(particles);
+
+const neonParticleCount=60;
+const neonPositions=new Float32Array(neonParticleCount*3);
+const neonVelocities=[];
+for(let i=0;i<neonParticleCount;i++){
+neonPositions[i*3]=(Math.random()-0.5)*20;
+neonPositions[i*3+1]=(Math.random()-0.5)*20;
+neonPositions[i*3+2]=(Math.random()-0.5)*10;
+neonVelocities.push({x:(Math.random()-0.5)*0.006,y:(Math.random()-0.5)*0.006,z:(Math.random()-0.5)*0.003});
+}
+const neonGeometry=new THREE.BufferGeometry();
+neonGeometry.setAttribute('position',new THREE.BufferAttribute(neonPositions,3));
+const neonMaterial=new THREE.PointsMaterial({color:0x00F5D4,size:0.06,transparent:true,opacity:0.5,blending:THREE.AdditiveBlending});
+const neonParticles=new THREE.Points(neonGeometry,neonMaterial);
+scene.add(neonParticles);
+
+camera.position.z=10;
+let mousePos={x:0,y:0};
+document.addEventListener('mousemove',(e)=>{mousePos.x=(e.clientX/window.innerWidth)*2-1;mousePos.y=-(e.clientY/window.innerHeight)*2+1;});
+function animateWebGL(){
+requestAnimationFrame(animateWebGL);
+const posArray=particles.geometry.attributes.position.array;
+for(let i=0;i<particleCount;i++){
+posArray[i*3]+=velocities[i].x;posArray[i*3+1]+=velocities[i].y;posArray[i*3+2]+=velocities[i].z;
+if(Math.abs(posArray[i*3])>12)velocities[i].x*=-1;if(Math.abs(posArray[i*3+1])>12)velocities[i].y*=-1;if(Math.abs(posArray[i*3+2])>7)velocities[i].z*=-1;
+}
+particles.geometry.attributes.position.needsUpdate=true;
+particles.rotation.y+=0.0003;particles.rotation.x+=0.0001;
+const neonArray=neonParticles.geometry.attributes.position.array;
+for(let i=0;i<neonParticleCount;i++){
+neonArray[i*3]+=neonVelocities[i].x;neonArray[i*3+1]+=neonVelocities[i].y;neonArray[i*3+2]+=neonVelocities[i].z;
+if(Math.abs(neonArray[i*3])>10)neonVelocities[i].x*=-1;if(Math.abs(neonArray[i*3+1])>10)neonVelocities[i].y*=-1;if(Math.abs(neonArray[i*3+2])>5)neonVelocities[i].z*=-1;
+}
+neonParticles.geometry.attributes.position.needsUpdate=true;
+neonParticles.rotation.y-=0.0005;
+camera.position.x+=(mousePos.x*0.5-camera.position.x)*0.02;
+camera.position.y+=(mousePos.y*0.5-camera.position.y)*0.02;
+camera.lookAt(scene.position);
+renderer.render(scene,camera);
+}
+animateWebGL();
+window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);});
+
+gsap.registerPlugin(ScrollTrigger);
+function initHeroAnimations(){
+const heroTl=gsap.timeline({defaults:{ease:'power4.out'}});
+heroTl.to('.hero-eyebrow',{opacity:1,y:0,duration:1,delay:0.2})
+.to('.hero-title',{opacity:1,y:0,duration:1.2},'-=0.6')
+.to('.hero-tagline',{opacity:1,y:0,duration:1},'-=0.8')
+.to('.hero-cta',{opacity:1,y:0,duration:0.8},'-=0.6');
+}
+
+gsap.to('#scroll-progress',{width:'100%',ease:'none',scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:0.3}});
+ScrollTrigger.create({trigger:'#stats',start:'top 80%',onEnter:()=>gsap.to('#navbar',{opacity:1,y:0,duration:0.5}),onLeaveBack:()=>gsap.to('#navbar',{opacity:0,y:-100,duration:0.5})});
+
+document.querySelectorAll('.reveal-up,.reveal-left,.reveal-right,.reveal-scale').forEach((el)=>{
+gsap.to(el,{scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none reverse'},opacity:1,x:0,y:0,scale:1,duration:1,ease:'power3.out'});
+});
+
+document.querySelectorAll('.counter-value').forEach(counter=>{
+const target=parseInt(counter.dataset.target);
+const suffix=counter.dataset.suffix||'';
+ScrollTrigger.create({trigger:counter,start:'top 85%',once:true,onEnter:()=>{
+gsap.to(counter,{duration:2,ease:'power2.out',onUpdate:function(){counter.textContent=Math.floor(this.progress()*target)+suffix;}});
+}});
+});
+
+gsap.to('#hero-canvas',{scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true},y:200,opacity:0.3});
+
+document.querySelectorAll('.tilt-card').forEach(card=>{
+card.addEventListener('mousemove',(e)=>{
+const rect=card.getBoundingClientRect();
+const x=e.clientX-rect.left;
+const y=e.clientY-rect.top;
+const centerX=rect.width/2;
+const centerY=rect.height/2;
+const rotateX=(y-centerY)/centerY*-8;
+const rotateY=(x-centerX)/centerX*8;
+card.style.transform=`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+card.style.setProperty('--mouse-x',(x/rect.width*100)+'%');
+card.style.setProperty('--mouse-y',(y/rect.height*100)+'%');
+});
+card.addEventListener('mouseleave',()=>{card.style.transform='perspective(1000px) rotateX(0) rotateY(0)';});
+});
+
+gsap.utils.toArray('.portfolio-item').forEach((item,i)=>{
+gsap.from(item,{scrollTrigger:{trigger:item,start:'top 85%'},y:60,opacity:0,duration:1,delay:i*0.1,ease:'power3.out'});
+});
+
+const mobileMenuBtn=document.getElementById('mobile-menu-btn');
+const mobileMenuClose=document.getElementById('mobile-menu-close');
+const mobileMenu=document.getElementById('mobile-menu');
+const mobileLinks=document.querySelectorAll('.mobile-link');
+function openMobileMenu(){mobileMenu.style.opacity='1';mobileMenu.style.pointerEvents='auto';}
+function closeMobileMenu(){mobileMenu.style.opacity='0';mobileMenu.style.pointerEvents='none';}
+mobileMenuBtn.addEventListener('click',openMobileMenu);
+mobileMenuClose.addEventListener('click',closeMobileMenu);
+mobileLinks.forEach(link=>link.addEventListener('click',closeMobileMenu));
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+anchor.addEventListener('click',function(e){e.preventDefault();const target=document.querySelector(this.getAttribute('href'));if(target){target.scrollIntoView({behavior:'smooth',block:'start'});}});
+});
+
+document.querySelectorAll('.magnetic-btn').forEach(btn=>{
+btn.addEventListener('mousemove',(e)=>{
+const rect=btn.getBoundingClientRect();
+const x=e.clientX-rect.left-rect.width/2;
+const y=e.clientY-rect.top-rect.height/2;
+gsap.to(btn,{x:x*0.25,y:y*0.25,duration:0.3,ease:'power2.out'});
+});
+btn.addEventListener('mouseleave',()=>{gsap.to(btn,{x:0,y:0,duration:0.5,ease:'elastic.out(1,0.3)'});});
+});
+</script>
+</body>
+</html>
