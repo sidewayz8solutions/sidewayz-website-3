@@ -58,7 +58,7 @@ html,body{margin:0;padding:0;background:#0a0a0a;color:#fff;font-family:'Inter',s
 .reveal-right{opacity:0;transform:translateX(60px)}
 .reveal-scale{opacity:0;transform:scale(0.85)}
 .section-line{height:1px;background:linear-gradient(90deg,transparent,rgba(184,115,51,0.4),transparent)}
-.product-badge{position:absolute;top:-1px;right:-1px;padding:0.5rem 1rem;font-size:0.625rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border-bottom-left-radius:1rem;z-index:20}
+.product-badge{position:absolute;top:-1px;right:-1px;padding:0.5rem 1rem;font-size:0.625rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border-bottom-left-radius:1rem;z-index:20;-webkit-backface-visibility:hidden;backface-visibility:hidden}
 #scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#B87333,#00F5D4);z-index:9999;width:0%;transition:width 0.1s linear}
 @media (pointer:coarse){body{cursor:auto}.cursor,.cursor-follower{display:none}}
 .service-panel{position:relative;overflow:hidden}
@@ -68,13 +68,13 @@ html,body{margin:0;padding:0;background:#0a0a0a;color:#fff;font-family:'Inter',s
 .service-panel:hover .service-details{max-height:300px;opacity:1}
 @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 @keyframes float{0%,100%{transform:translateY(0px)}50%{transform:translateY(-20px)}}
-.flip-card{perspective:1000px;cursor:pointer;min-height:340px}
-.flip-card-inner{position:relative;width:100%;height:100%;min-height:340px;transition:transform 0.8s cubic-bezier(0.4,0,0.2,1);transform-style:preserve-3d}
+.flip-card{perspective:1000px;cursor:pointer;height:100%}
+.flip-card-inner{position:relative;width:100%;height:100%;transition:transform 0.8s cubic-bezier(0.4,0,0.2,1);transform-style:preserve-3d}
 .flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
-.flip-card-front,.flip-card-back{position:absolute;inset:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:1rem}
-.flip-card-front{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1)}
-.flip-card-back{background:linear-gradient(135deg,rgba(184,115,51,0.15),rgba(0,245,212,0.08));border:1px solid rgba(184,115,51,0.3);transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem}
-.flip-hint{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);font-size:0.625rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.3);transition:color 0.3s ease}
+.flip-card-front,.flip-card-back{position:absolute;inset:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:1rem;overflow:hidden}
+.flip-card-front{transform:rotateY(0deg) translateZ(1px);background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1)}
+.flip-card-back{transform:rotateY(180deg) translateZ(1px);background:linear-gradient(135deg,rgba(184,115,51,0.15),rgba(0,245,212,0.08));border:1px solid rgba(184,115,51,0.3);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:1.5rem;gap:1.5rem}
+.flip-hint{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);font-size:0.625rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.3);transition:color 0.3s ease;-webkit-backface-visibility:hidden;backface-visibility:hidden}
 .flip-card:hover .flip-hint{color:rgba(184,115,51,0.8)}
 </style>
 <script type="application/ld+json">
@@ -246,7 +246,7 @@ AI-Powered Creative Technology Studio
     <div class="flip-card-inner">
       <div class="flip-card-front p-8 relative">
         <div class="product-badge bg-copper/20 text-copper">AI Powered</div>
-        <div class="w-14 h-14 bg-copper/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-copper/30 transition-colors">
+        <div class="w-14 h-14 bg-copper/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-copper/30 transition-colors">
           <svg class="w-7 h-7 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
         </div>
         <h3 class="font-display font-bold text-2xl text-white mb-3">Smart ATS Resume</h3>
@@ -257,13 +257,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-16 h-16 bg-copper/20 rounded-full flex items-center justify-center mb-6">
-          <svg class="w-8 h-8 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/smartats.png" alt="Smart ATS Resume Logo" class="max-w-full max-h-full object-contain rounded-lg">
         </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">Smart ATS Resume</h3>
-        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-copper/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider hover:bg-copper/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -271,7 +268,7 @@ AI-Powered Creative Technology Studio
     <div class="flip-card-inner">
       <div class="flip-card-front p-8 relative">
         <div class="product-badge bg-neon/10 text-neon">Mobile App</div>
-        <div class="w-14 h-14 bg-neon/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-neon/30 transition-colors">
+        <div class="w-14 h-14 bg-neon/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neon/30 transition-colors">
           <svg class="w-7 h-7 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
         </div>
         <h3 class="font-display font-bold text-2xl text-white mb-3">Püper</h3>
@@ -282,13 +279,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-16 h-16 bg-neon/20 rounded-full flex items-center justify-center mb-6">
-          <svg class="w-8 h-8 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/puper.png" alt="Püper Logo" class="max-w-full max-h-full object-contain rounded-lg">
         </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">Püper</h3>
-        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon/20 text-neon rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-neon/20 text-neon rounded-full font-display font-bold text-sm tracking-wider hover:bg-neon/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -296,7 +290,7 @@ AI-Powered Creative Technology Studio
     <div class="flip-card-inner">
       <div class="flip-card-front p-8 relative">
         <div class="product-badge bg-neon-purple/10 text-neon-purple">SaaS</div>
-        <div class="w-14 h-14 bg-neon-purple/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-neon-purple/30 transition-colors">
+        <div class="w-14 h-14 bg-neon-purple/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neon-purple/30 transition-colors">
           <svg class="w-7 h-7 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
         </div>
         <h3 class="font-display font-bold text-2xl text-white mb-3">PageMint</h3>
@@ -307,13 +301,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-16 h-16 bg-neon-purple/20 rounded-full flex items-center justify-center mb-6">
-          <svg class="w-8 h-8 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/pagemint.png" alt="PageMint Logo" class="max-w-full max-h-full object-contain rounded-lg">
         </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">PageMint</h3>
-        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon-purple/20 text-neon-purple rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon-purple/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-neon-purple/20 text-neon-purple rounded-full font-display font-bold text-sm tracking-wider hover:bg-neon-purple/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -321,7 +312,7 @@ AI-Powered Creative Technology Studio
     <div class="flip-card-inner">
       <div class="flip-card-front p-8 relative">
         <div class="product-badge bg-copper/20 text-copper">Creative</div>
-        <div class="w-14 h-14 bg-copper/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-copper/30 transition-colors">
+        <div class="w-14 h-14 bg-copper/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-copper/30 transition-colors">
           <svg class="w-7 h-7 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
         </div>
         <h3 class="font-display font-bold text-2xl text-white mb-3">Captain Hook's Jingle Factory</h3>
@@ -332,13 +323,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-16 h-16 bg-copper/20 rounded-full flex items-center justify-center mb-6">
-          <svg class="w-8 h-8 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/chook.png" alt="Captain Hook's Jingle Factory Logo" class="max-w-full max-h-full object-contain rounded-lg">
         </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">Captain Hook's Jingle Factory</h3>
-        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-copper/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider hover:bg-copper/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -346,7 +334,7 @@ AI-Powered Creative Technology Studio
     <div class="flip-card-inner">
       <div class="flip-card-front p-8 relative">
         <div class="product-badge bg-neon-pink/10 text-neon-pink">Branding</div>
-        <div class="w-14 h-14 bg-neon-pink/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-neon-pink/30 transition-colors">
+        <div class="w-14 h-14 bg-neon-pink/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neon-pink/30 transition-colors">
           <svg class="w-7 h-7 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
         </div>
         <h3 class="font-display font-bold text-2xl text-white mb-3">Button'd</h3>
@@ -357,13 +345,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-16 h-16 bg-neon-pink/20 rounded-full flex items-center justify-center mb-6">
-          <svg class="w-8 h-8 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/buttond1.png" alt="Button'd Logo" class="max-w-full max-h-full object-contain rounded-lg">
         </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">Button'd</h3>
-        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon-pink/20 text-neon-pink rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon-pink/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-neon-pink/20 text-neon-pink rounded-full font-display font-bold text-sm tracking-wider hover:bg-neon-pink/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -371,7 +356,7 @@ AI-Powered Creative Technology Studio
     <div class="flip-card-inner">
       <div class="flip-card-front p-8 relative">
         <div class="product-badge bg-neon/10 text-neon">Campaign</div>
-        <div class="w-14 h-14 bg-neon/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-neon/30 transition-colors">
+        <div class="w-14 h-14 bg-neon/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neon/30 transition-colors">
           <svg class="w-7 h-7 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
         </div>
         <h3 class="font-display font-bold text-2xl text-white mb-3">Political Campaigns</h3>
@@ -382,13 +367,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-16 h-16 bg-neon/20 rounded-full flex items-center justify-center mb-6">
-          <svg class="w-8 h-8 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/campaign.png" alt="Political Campaigns Logo" class="max-w-full max-h-full object-contain rounded-lg">
         </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">Political Campaigns</h3>
-        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon/20 text-neon rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-neon/20 text-neon rounded-full font-display font-bold text-sm tracking-wider hover:bg-neon/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -396,7 +378,7 @@ AI-Powered Creative Technology Studio
     <div class="flip-card-inner">
       <div class="flip-card-front p-8 relative">
         <div class="product-badge bg-neon-purple/10 text-neon-purple">Legal Tech</div>
-        <div class="w-14 h-14 bg-neon-purple/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-neon-purple/30 transition-colors">
+        <div class="w-14 h-14 bg-neon-purple/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neon-purple/30 transition-colors">
           <svg class="w-7 h-7 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
         </div>
         <h3 class="font-display font-bold text-2xl text-white mb-3">LegalLetter AI</h3>
@@ -407,13 +389,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-16 h-16 bg-neon-purple/20 rounded-full flex items-center justify-center mb-6">
-          <svg class="w-8 h-8 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/legalletter.png" alt="LegalLetter AI Logo" class="max-w-full max-h-full object-contain rounded-lg">
         </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">LegalLetter AI</h3>
-        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon-purple/20 text-neon-purple rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon-purple/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-neon-purple/20 text-neon-purple rounded-full font-display font-bold text-sm tracking-wider hover:bg-neon-purple/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -421,7 +400,7 @@ AI-Powered Creative Technology Studio
     <div class="flip-card-inner">
       <div class="flip-card-front p-8 relative">
         <div class="product-badge bg-copper/20 text-copper">Visibility</div>
-        <div class="w-14 h-14 bg-copper/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-copper/30 transition-colors">
+        <div class="w-14 h-14 bg-copper/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-copper/30 transition-colors">
           <svg class="w-7 h-7 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
         </div>
         <h3 class="font-display font-bold text-2xl text-white mb-3">Brand - APOL</h3>
@@ -432,13 +411,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-16 h-16 bg-copper/20 rounded-full flex items-center justify-center mb-6">
-          <svg class="w-8 h-8 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/brand-apol-logo.png" alt="Brand APOL Logo" class="max-w-full max-h-full object-contain rounded-lg">
         </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">Brand - APOL</h3>
-        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-copper/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider hover:bg-copper/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -446,7 +422,7 @@ AI-Powered Creative Technology Studio
     <div class="flip-card-inner">
       <div class="flip-card-front p-8 relative">
         <div class="product-badge bg-neon-pink/10 text-neon-pink">Music Tech</div>
-        <div class="w-14 h-14 bg-neon-pink/20 rounded-xl flex items-center justify-center mb-6 group-group-hover:bg-neon-pink/30 transition-colors">
+        <div class="w-14 h-14 bg-neon-pink/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neon-pink/30 transition-colors">
           <svg class="w-7 h-7 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         </div>
         <h3 class="font-display font-bold text-2xl text-white mb-3">Royally Tuned</h3>
@@ -457,13 +433,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-16 h-16 bg-neon-pink/20 rounded-full flex items-center justify-center mb-6">
-          <svg class="w-8 h-8 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/pocket.png" alt="Royally Tuned Logo" class="max-w-full max-h-full object-contain rounded-lg">
         </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">Royally Tuned</h3>
-        <p class="text-white/60 text-sm mb-8 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon-pink/20 text-neon-pink rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon-pink/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-6 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-neon-pink/20 text-neon-pink rounded-full font-display font-bold text-sm tracking-wider hover:bg-neon-pink/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
