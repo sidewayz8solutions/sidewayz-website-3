@@ -73,7 +73,7 @@ html,body{margin:0;padding:0;background:#0a0a0a;color:#fff;font-family:'Inter',s
 .flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
 .flip-card-front,.flip-card-back{position:absolute;inset:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:1rem}
 .flip-card-front{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1)}
-.flip-card-back{background:linear-gradient(135deg,rgba(184,115,51,0.15),rgba(0,245,212,0.08));border:1px solid rgba(184,115,51,0.3);transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem}
+.flip-card-back{background:linear-gradient(135deg,rgba(184,115,51,0.15),rgba(0,245,212,0.08));border:1px solid rgba(184,115,51,0.3);transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:1.5rem;gap:1.5rem}
 .flip-hint{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);font-size:0.625rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.3);transition:color 0.3s ease}
 .flip-card:hover .flip-hint{color:rgba(184,115,51,0.8)}
 </style>
@@ -257,11 +257,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-32 h-32 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 p-3"><img src="assets/logos/smartats.png" alt="Smart ATS Resume Logo" class="max-w-full max-h-full object-contain rounded-lg"></div>
-        <h3 class="font-display font-bold text-xl text-white mb-2">Smart ATS Resume</h3>
-        <p class="text-white/60 text-sm mb-5 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-copper/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-4 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/smartats.png" alt="Smart ATS Resume Logo" class="max-w-full max-h-full object-contain rounded-lg">
+        </div>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider hover:bg-copper/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -280,11 +279,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-32 h-32 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 p-3"><img src="assets/logos/puper.png" alt="Püper Logo" class="max-w-full max-h-full object-contain rounded-lg"></div>
-        <h3 class="font-display font-bold text-xl text-white mb-2">Püper</h3>
-        <p class="text-white/60 text-sm mb-5 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon/20 text-neon rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-4 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/puper.png" alt="Püper Logo" class="max-w-full max-h-full object-contain rounded-lg">
+        </div>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-neon/20 text-neon rounded-full font-display font-bold text-sm tracking-wider hover:bg-neon/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -303,11 +301,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-32 h-32 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 p-3"><img src="assets/logos/pagemint.png" alt="PageMint Logo" class="max-w-full max-h-full object-contain rounded-lg"></div>
-        <h3 class="font-display font-bold text-xl text-white mb-2">PageMint</h3>
-        <p class="text-white/60 text-sm mb-5 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon-purple/20 text-neon-purple rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon-purple/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-4 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/pagemint.png" alt="PageMint Logo" class="max-w-full max-h-full object-contain rounded-lg">
+        </div>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-neon-purple/20 text-neon-purple rounded-full font-display font-bold text-sm tracking-wider hover:bg-neon-purple/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -326,11 +323,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-32 h-32 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 p-3"><img src="assets/logos/chook.png" alt="Captain Hook's Jingle Factory Logo" class="max-w-full max-h-full object-contain rounded-lg"></div>
-        <h3 class="font-display font-bold text-xl text-white mb-2">Captain Hook's Jingle Factory</h3>
-        <p class="text-white/60 text-sm mb-5 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-copper/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-4 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/chook.png" alt="Captain Hook's Jingle Factory Logo" class="max-w-full max-h-full object-contain rounded-lg">
+        </div>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider hover:bg-copper/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -349,11 +345,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-32 h-32 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 p-3"><img src="assets/logos/buttond1.png" alt="Button'd Logo" class="max-w-full max-h-full object-contain rounded-lg"></div>
-        <h3 class="font-display font-bold text-xl text-white mb-2">Button'd</h3>
-        <p class="text-white/60 text-sm mb-5 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon-pink/20 text-neon-pink rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon-pink/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-4 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/buttond1.png" alt="Button'd Logo" class="max-w-full max-h-full object-contain rounded-lg">
+        </div>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-neon-pink/20 text-neon-pink rounded-full font-display font-bold text-sm tracking-wider hover:bg-neon-pink/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -372,11 +367,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-32 h-32 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 p-3"><img src="assets/logos/campaign.png" alt="Political Campaigns Logo" class="max-w-full max-h-full object-contain rounded-lg"></div>
-        <h3 class="font-display font-bold text-xl text-white mb-2">Political Campaigns</h3>
-        <p class="text-white/60 text-sm mb-5 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon/20 text-neon rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-4 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/campaign.png" alt="Political Campaigns Logo" class="max-w-full max-h-full object-contain rounded-lg">
+        </div>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-neon/20 text-neon rounded-full font-display font-bold text-sm tracking-wider hover:bg-neon/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -395,11 +389,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-32 h-32 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 p-3"><img src="assets/logos/legalletter.png" alt="LegalLetter AI Logo" class="max-w-full max-h-full object-contain rounded-lg"></div>
-        <h3 class="font-display font-bold text-xl text-white mb-2">LegalLetter AI</h3>
-        <p class="text-white/60 text-sm mb-5 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon-purple/20 text-neon-purple rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon-purple/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-4 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/legalletter.png" alt="LegalLetter AI Logo" class="max-w-full max-h-full object-contain rounded-lg">
+        </div>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-neon-purple/20 text-neon-purple rounded-full font-display font-bold text-sm tracking-wider hover:bg-neon-purple/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -418,11 +411,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-32 h-32 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 p-3"><img src="assets/logos/brand-apol-logo.png" alt="Brand APOL Logo" class="max-w-full max-h-full object-contain rounded-lg"></div>
-        <h3 class="font-display font-bold text-xl text-white mb-2">Brand - APOL</h3>
-        <p class="text-white/60 text-sm mb-5 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-copper/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-4 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/brand-apol-logo.png" alt="Brand APOL Logo" class="max-w-full max-h-full object-contain rounded-lg">
+        </div>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-copper/20 text-copper rounded-full font-display font-bold text-sm tracking-wider hover:bg-copper/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
@@ -441,11 +433,10 @@ AI-Powered Creative Technology Studio
         <div class="flip-hint">Tap to flip</div>
       </div>
       <div class="flip-card-back">
-        <div class="w-32 h-32 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 p-3"><img src="assets/logos/pocket.png" alt="Royally Tuned Logo" class="max-w-full max-h-full object-contain rounded-lg"></div>
-        <h3 class="font-display font-bold text-xl text-white mb-2">Royally Tuned</h3>
-        <p class="text-white/60 text-sm mb-5 max-w-xs">Want to see it live? Click below to explore.</p>
-        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-neon-pink/20 text-neon-pink rounded-full font-display font-bold text-sm tracking-wider group-hover:bg-neon-pink/30 transition-all">Explore <span>→</span></a>
-        <button onclick="event.stopPropagation();this.closest('.flip-card').classList.remove('flipped')" class="mt-4 text-xs font-mono text-white/30 hover:text-copper transition-colors uppercase tracking-wider">Tap to flip back</button>
+        <div class="w-44 h-44 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center p-4">
+          <img src="assets/logos/pocket.png" alt="Royally Tuned Logo" class="max-w-full max-h-full object-contain rounded-lg">
+        </div>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-neon-pink/20 text-neon-pink rounded-full font-display font-bold text-sm tracking-wider hover:bg-neon-pink/30 transition-all">EXPLORE <span>→</span></a>
       </div>
     </div>
   </div>
